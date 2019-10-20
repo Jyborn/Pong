@@ -35,6 +35,16 @@ public class Paddle implements IPositionable{
         }
     }
 
+    public int spin(int balldy) {
+        System.out.println("spin");
+        if (balldy == 1 && dy == -1) {
+            return -1;
+        } else if (balldy == -1 && dy == 1) {
+            return 1;
+        }
+        return balldy;
+    }
+
     public void setDy(Double dy) {
         this.dy = dy;
     }
