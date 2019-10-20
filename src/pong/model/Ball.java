@@ -4,6 +4,7 @@ import java.lang.reflect.WildcardType;
 import java.util.Random;
 import static pong.model.Pong.GAME_HEIGHT;
 import static pong.model.Pong.GAME_WIDTH;
+import static pong.model.Pong.BALL_SPEED_FACTOR;
 
 /*
  * A Ball for the Pong game
@@ -13,14 +14,15 @@ public class Ball implements IPositionable  {
 
     public static final double WIDTH = 40;
     public static final double HEIGHT = 40;
-    public double speed = 3.0;
-    public static Pong pong;
+    public static final double BALL_BEGIN_SPEED = 3.0;
+    public double speed;
     public int dx, dy;
     public double x,y;
 
     public Ball() {
-        this.x = pong.GAME_WIDTH / 2 - WIDTH / 2;
-        this.y = pong.GAME_HEIGHT / 2 - HEIGHT / 2;
+        this.x = GAME_WIDTH / 2 - WIDTH / 2;
+        this.y = GAME_HEIGHT / 2 - HEIGHT / 2;
+        speed = BALL_BEGIN_SPEED;
         setRandomDirections();
     }
 
@@ -30,7 +32,7 @@ public class Ball implements IPositionable  {
     }
 
     public void accel() {
-        speed *= pong.BALL_SPEED_FACTOR;
+        speed *= BALL_SPEED_FACTOR;
     }
 
     public void setRandomDirections() {
@@ -43,19 +45,18 @@ public class Ball implements IPositionable  {
     public String outsideWindow() {
         if (x + WIDTH / 2 >= GAME_WIDTH) {
             resetBall();
-            System.out.println("right");
             return "right";
         } else if (x + WIDTH / 2 <= 0) {
             resetBall();
-            System.out.println("left");
             return "left";
         }
         return "";
     }
 
     private void resetBall() {
-        this.x = pong.GAME_WIDTH / 2 - WIDTH / 2;
-        this.y = pong.GAME_HEIGHT / 2 - HEIGHT / 2;
+        this.x = GAME_WIDTH / 2 - WIDTH / 2;
+        this.y = GAME_HEIGHT / 2 - HEIGHT / 2;
+        speed = BALL_BEGIN_SPEED;
         setRandomDirections();
     }
 
